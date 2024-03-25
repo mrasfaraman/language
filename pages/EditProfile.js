@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -33,7 +33,6 @@ const EditProfile = () => {
     };
     loadSelectedLanguage();
   }, []);
-
   return (
     <ScrollView
       style={[styles.mainWrapper, {backgroundColor: theme.screenBackgroud}]}>
@@ -49,7 +48,8 @@ const EditProfile = () => {
             </View>
           </View>
           <View style={styles.inpMainWrapper}>
-            <Text style={[styles.inpLabel, {color: theme.text}]}>{t('name')}</Text>
+            <Text style={[styles.inpLabel, {color: theme.text}]}>{t('name')}
+</Text>
             <TextInput placeholderTextColor={theme.text} style={[styles.inpWrapper, {backgroundColor: theme.menuItemBG, borderColor: theme.emphasis, color: theme.text}]} />
           </View>
         </View>

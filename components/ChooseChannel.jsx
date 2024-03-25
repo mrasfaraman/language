@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
     Image,
     ScrollView,
@@ -22,7 +22,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ChooseChannel = () => {
     const {theme} = useContext(ThemeContext);
     const data = [1, 1, 1]
-    const {t} = useTranslation();
+    
+ const {t} = useTranslation();
  useEffect(() => {
    const loadSelectedLanguage = async () => {
      try {

@@ -52,17 +52,7 @@ import ConfirmSolTransaction from './pages/ConfirmSolTransaction';
 import ConfirmSolSwapTransaction from './pages/ConfirmSolSwapTransaction';
 import SwapEvm from './pages/SwapEvm';
 import ConfirmEvmSwapTransaction from './pages/ConfirmEvmSwapTransaction';
-import ConfirmBtcTransaction from './pages/ConfirmBtcTransaction';
-import AccountList from './pages/AcountList';
-import ImportWalletMnemonic from './pages/ImportWalletMnemonic';
-import ConfirmDogeTransaction from './pages/ConfirmDogeTransaction';
-import ConfirmTronTransaction from './pages/ConfirmTronTransaction';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
-import TermsScreen from './pages/TermScreen';
-import PrivacyPolicyScreen from './pages/PrivacyScreen';
-import RecoveryConfirmScreen from './pages/RecoveryConfirmScreen';
-import AboutUsScreen from './pages/AboutUsScreen';
-
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
 
@@ -85,22 +75,6 @@ function App(): React.JSX.Element {
                   name="ConfirmEvmSwapTransaction"
                   component={ConfirmEvmSwapTransaction}
                 />
-                   <Stack.Screen
-                  name="ConfirmBtcTransaction"
-                  component={ConfirmBtcTransaction}
-                />
-                  <Stack.Screen
-                  name="ConfirmDogeTransaction"
-                  component={ConfirmDogeTransaction}
-                />
-                  <Stack.Screen
-                  name="ConfirmTronTransaction"
-                  component={ConfirmTronTransaction}
-                />
-                <Stack.Screen
-                  name="AccountList"
-                  component={AccountList}
-                />
                 <Stack.Screen
                   name="CreateWalletScreen"
                   component={CreateWalletScreen}
@@ -116,22 +90,6 @@ function App(): React.JSX.Element {
                 <Stack.Screen
                   name="RecoveryPhraseScreen"
                   component={RecoveryPhraseScreen}
-                />
-                <Stack.Screen
-                  name="Term"
-                  component={TermsScreen}
-                />
-                <Stack.Screen
-                  name="Privacy"
-                  component={PrivacyPolicyScreen}
-                />
-                <Stack.Screen
-                  name="RecoveryConfirm"
-                  component={RecoveryConfirmScreen}
-                />
-                <Stack.Screen
-                  name="About"
-                  component={AboutUsScreen}
                 />
                 <Stack.Screen
                   name="SetPasswordScreen"
@@ -199,7 +157,6 @@ function App(): React.JSX.Element {
                 <Stack.Screen name="ThemesScreen" component={ThemesScreen} />
                 <Stack.Screen name="TokenList" component={TokenList} />
                 <Stack.Screen name="Chat" component={Chat} />
-                <Stack.Screen name="ImportWalletMnemonic" component={ImportWalletMnemonic} />
                 <Stack.Screen name="ImportWallet" component={ImportWallet} />
                 <Stack.Screen name="Networks" component={Networks} />
                 <Stack.Screen name="CreateAccount" component={CreateAccount} />

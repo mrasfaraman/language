@@ -24,8 +24,7 @@ const MainHeader = ({ navigation , address}) => {
     <View style={styles.headerWrapper}>
       <View style={styles.headerLeft}>
         <View style={styles.imageWrapper}>
-          {/* <Image source={UserImage} width={100} height={100} /> */}
-          <Image style={{borderRadius:50}} source={{ uri: 'https://t3.ftcdn.net/jpg/06/47/55/24/360_F_647552478_2ayY359RpCgfZY6Y3Z7bAvcnNIeJjBki.jpg' }} width={45} height={45} />
+          <Image source={UserImage} width={100} height={100} />
           {/* <TouchableOpacity
             style={[
               styles.userImgEdit,
@@ -39,7 +38,7 @@ const MainHeader = ({ navigation , address}) => {
           </TouchableOpacity> */}
         </View>
         <View>
-          <AccountDropDown navigation={navigation} />
+          <AccountDropDown />
           {/* <Text style={[styles.userAccount, { color: theme.text }]}>
             Account 1
           </Text> */}
@@ -50,9 +49,7 @@ const MainHeader = ({ navigation , address}) => {
         <TouchableOpacity
           style={[styles.rightBtnWrapper, { backgroundColor: theme.menuItemBG }]}
           onPress={() => navigation.navigate('Scan',{address})}>
-          {/* <Image source={theme.type == 'dark' ? HeaderQr : HeaderQrDark} /> */}
           <Image source={theme.type == 'dark' ? HeaderQr : HeaderQrDark} />
-          {/* <Image style={[styles.pancakeLeftImage,{borderRadius:50}]} source={{ uri: 'https://t3.ftcdn.net/jpg/06/47/55/24/360_F_647552478_2ayY359RpCgfZY6Y3Z7bAvcnNIeJjBki.jpg' }} /> */}
         </TouchableOpacity>
         {/* <View
           style={[styles.rightBtnWrapper, { backgroundColor: theme.menuItemBG }]}>

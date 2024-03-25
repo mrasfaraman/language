@@ -21,7 +21,6 @@ import AddButton from '../components/AddButton';
 import {ThemeContext} from '../context/ThemeContext';
 import { SafeAreaView } from 'react-native';
 import QRCodeGenerator from '../components/QRCodeGenerator/QRCodeGenerator';
-import SubmitBtn from '../components/SubmitBtn';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -102,22 +101,13 @@ const Sell = ({route,navigation}) => {
         </View>
       </View>
       <View style={styles.tokenImportBtnWrapper}>
-        <SubmitBtn
-          title={t('share')}
-          onPress={() =>
-            shareAddress(route?.params?.account.replace(/^"|"$/g, ''))
-          }
-          containerStyle={{marginHorizontal: 0}}
-        />
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={[styles.tokenImportButton, {borderColor: theme.buttonBorder}]}
-          onPress={() =>
-            shareAddress(route?.params?.account.replace(/^"|"$/g, ''))
-          }>
+          onPress={() => shareAddress(route?.params?.account.replace(/^"|"$/g, ''))}>
           <Text style={[styles.tokenImportButtonText, {color: theme.text}]}>
-            Share
+          {t('share')}
           </Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

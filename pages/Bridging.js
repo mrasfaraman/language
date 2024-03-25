@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -17,12 +17,9 @@ import SwapingIcon from '../assets/images/swaping_icon.png';
 import SwapingIconDark from '../assets/images/swaping_icon_dark.png';
 import ChooseChannel from '../components/ChooseChannel';
 import {ThemeContext} from '../context/ThemeContext';
-import SubmitBtn from '../components/SubmitBtn';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 
 const Bridging = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -40,7 +37,6 @@ const Bridging = ({navigation}) => {
     };
     loadSelectedLanguage();
   }, []);
-
   const SwapCard = () => {
     return (
       <View
@@ -65,7 +61,7 @@ const Bridging = ({navigation}) => {
           {/*  */}
           <View style={styles.dropDownFlex}>
             <Text style={[styles.swapHeaderText, {color: theme.text}]}>
-            {t('token')}
+              {t('token')}
             </Text>
             <View style={styles.swapLeftSubFlex}>
               <View style={styles.currencyIconWrapper}>
@@ -82,7 +78,9 @@ const Bridging = ({navigation}) => {
         </View>
         {/*  */}
         <View style={styles.amountWrapper}>
-          <Text style={[styles.ammountText, {color: theme.text}]}>{t('amount')}</Text>
+          <Text style={[styles.ammountText, {color: theme.text}]}>
+            {t('amount')}
+          </Text>
           <View style={styles.amountInpWrapperFlex}>
             <TextInput
               style={[
@@ -92,14 +90,25 @@ const Bridging = ({navigation}) => {
               placeholder="0.000"
               placeholderTextColor={theme.text}
             />
-            <TouchableOpacity style={[styles.swapMaxBtnWrapper, {borderColor: theme.buttonBorder}]}>
-              <Text style={[styles.swapMaxBtnText, {color: theme.text}]}>{t('max')}</Text>
+            <TouchableOpacity
+              style={[
+                styles.swapMaxBtnWrapper,
+                {borderColor: theme.buttonBorder},
+              ]}>
+              <Text style={[styles.swapMaxBtnText, {color: theme.text}]}>
+                {' '}
+                {t('max')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.balanceWrapperFlex}>
-          <Text style={[styles.swapBalanceLabel, {color: theme.text}]}>{t('balance')}</Text>
-          <Text style={[styles.swapBalance, {color: theme.emphasis}]}>1.50129603 KDA</Text>
+          <Text style={[styles.swapBalanceLabel, {color: theme.text}]}>
+            {t('balance')}
+          </Text>
+          <Text style={[styles.swapBalance, {color: theme.emphasis}]}>
+            1.50129603 KDA
+          </Text>
         </View>
       </View>
     );
@@ -112,29 +121,31 @@ const Bridging = ({navigation}) => {
       <View style={styles.swapWrapper}>
         <SwapCard />
         <View style={styles.swapBtnFlexWrapper}>
-          <TouchableOpacity style={[styles.swapBtn, {backgroundColor: theme.rightArrowBG}]}>
-            <Image source={theme.type == 'dark' ? SwapingIcon : SwapingIconDark} />
+          <TouchableOpacity
+            style={[styles.swapBtn, {backgroundColor: theme.rightArrowBG}]}>
+            <Image
+              source={theme.type == 'dark' ? SwapingIcon : SwapingIconDark}
+            />
           </TouchableOpacity>
         </View>
       </View>
       <SwapCard />
       <View style={styles.gasFeeFlex}>
-        <Text style={[styles.gasFeeLabel, {color: theme.text}]}>{t('gas_fee')}</Text>
-        <Text style={[styles.gasFee, {color: theme.emphasis}]}>{t('gas_fee')}</Text>
+        <Text style={[styles.gasFeeLabel, {color: theme.text}]}>
+          {t('gas_fee')}
+        </Text>
+        <Text style={[styles.gasFee, {color: theme.emphasis}]}>
+          {t('gas_fee')}
+        </Text>
       </View>
       <ChooseChannel />
       <View style={styles.tokenImportBtnWrapper}>
-        <SubmitBtn
-          title={t('save_changes')}
-          // onPress={() => {}}
-          containerStyle={{marginHorizontal: 0}}
-        />
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={[styles.tokenImportButton, {borderColor: theme.buttonBorder}]}>
           <Text style={[styles.tokenImportButtonText, {color: theme.text}]}>
-            Save Changes
+            {t('save_changes')}
           </Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from "react";
 import { Modal } from "native-base";
 import { useState, useContext } from "react";
 import {
@@ -14,7 +14,6 @@ import { Button } from "native-base";
 import {useTranslation} from 'react-i18next';
 import i18n from '../../pages/i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 const PrivateKeyModal = ({ privateKey, label }) => {
     const [showModal, setShowModal] = useState(false);
@@ -53,6 +52,7 @@ const PrivateKeyModal = ({ privateKey, label }) => {
                         }
                     />
                     <Text style={[styles.menuItemText, { color: theme.text }]}>
+                      
                     {t('show')} {label} {t('private_key')}
                     </Text>
                 </View>

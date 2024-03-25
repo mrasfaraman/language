@@ -14,11 +14,9 @@ import {useAuth} from '../../context/AuthContext';
 import {importEVMToken , importSolToken} from '../../utils/function';
 import MaroonSpinner from '../Loader/MaroonSpinner';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
-import SubmitBtn from '../SubmitBtn';
 import {useTranslation} from 'react-i18next';
 import i18n from '../../pages/i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 
 const Token = ({navigation}) => {
@@ -28,26 +26,27 @@ const Token = ({navigation}) => {
   const [importedToken, setImportedToken] = useState({});
   const [toggle, setToggle] = useState(false);
   const [loader , setLoader] = useState(false)
+  const {t} = useTranslation();
+    useEffect(() => {
+      const loadSelectedLanguage = async () => {
+        try {
+          const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+          if (selectedLanguage) {
+            i18n.changeLanguage(selectedLanguage); 
+          }
+        } catch (error) {
+          console.error('Error loading selected language:', error);
+        }
+      };
+      loadSelectedLanguage();
+    }, []);
   const [tokenDetail, setTokenDetail] = useState({
     tokenAddress: '',
     nodeURL: '',
     symbol: '',
     decimal: '',
   });
-  const {t} = useTranslation();
-  useEffect(() => {
-    const loadSelectedLanguage = async () => {
-      try {
-        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-        if (selectedLanguage) {
-          i18n.changeLanguage(selectedLanguage); 
-        }
-      } catch (error) {
-        console.error('Error loading selected language:', error);
-      }
-    };
-    loadSelectedLanguage();
-  }, []);
+
   const updateTokenValue = (key, value) => {
     setTokenDetail(prevState => ({
       ...prevState,
@@ -146,15 +145,7 @@ const Token = ({navigation}) => {
         
         <TextInput
         value={tokenDetail?.tokenAddress}
-        style={[
-                styles.inpWrapper,
-                {
-                  backgroundColor: theme.menuItemBG,
-                  paddingVertical: 20,
-                  borderColor: theme.addButtonBorder,
-                  borderWidth: 1,
-                },
-              ]}
+          style={[styles.inpWrapper, {backgroundColor: theme.menuItemBG , paddingVertical:20}]}
           onChangeText={text => updateTokenValue('tokenAddress', text)}
         />
       </View>
@@ -162,57 +153,34 @@ const Token = ({navigation}) => {
         <Text style={[styles.inpLabel, {color: theme.text}]}>{t('symbol')}</Text>
         <View
           style={[
-                styles.inpWrapper,
-                {
-                  backgroundColor: theme.menuItemBG,
-                  paddingVertical: 25,
-                  borderColor: theme.addButtonBorder,
-                  borderWidth: 1,
-                },
-              ]}>
+            styles.inpWrapper,
+            {backgroundColor: theme.menuItemBG, paddingVertical: 25},
+          ]}>
             <Text>{tokenDetail?.symbol}</Text>
           </View>
       </View>
       <View style={styles.inpMainWrapper}>
         <Text style={[styles.inpLabel, {color: theme.text}]}>{t('decimals')}</Text>
         <View
-         style={[
-                styles.inpWrapper,
-                {
-                  backgroundColor: theme.menuItemBG,
-                  paddingVertical: 25,
-                  borderColor: theme.addButtonBorder,
-                  borderWidth: 1,
-                },
-              ]}>
+          style={[
+            styles.inpWrapper,
+            {backgroundColor: theme.menuItemBG, paddingVertical: 25},
+          ]}>
             <Text>{tokenDetail?.decimal}</Text>
           </View>
       </View>
       <View style={styles.tokenImportBtnWrapper}>
-      <SubmitBtn
-              title={!toggle ? t('import'): t('add_token')}
-              onPress={() =>
-                !toggle
-                  ? importToken(selectedNetworkParse)
-                  : addTokenDetail(importedToken)
-              }
-              containerStyle={{marginHorizontal: 0}}
-            />
-            {/* <TouchableOpacity
-              onPress={() =>
-                !toggle
-                  ? importToken(selectedNetworkParse)
-                  : addTokenDetail(importedToken)
-              }
-              style={[
-                styles.tokenImportButton,
-                {borderColor: theme.buttonBorder},
-              ]}>
-              <Text style={[styles.tokenImportButtonText, {color: theme.text}]}>
-                {!toggle ? 'Import' : 'Add Token'}
-              </Text>
-            </TouchableOpacity> */}
-          </View>
+        <TouchableOpacity
+          onPress={() =>
+            !toggle ? importToken(selectedNetworkParse) : addTokenDetail(importedToken)
+          }
+          style={[styles.tokenImportButton, {borderColor: theme.buttonBorder}]}>
+          <Text style={[styles.tokenImportButtonText, {color: theme.text}]}>
+            {!toggle ? t('import') : t('add_token')}
+            
+          </Text>
+        </TouchableOpacity>
+      </View>
       </>
       }
     </View>

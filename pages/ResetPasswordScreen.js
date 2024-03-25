@@ -1,4 +1,4 @@
-import React, {useContext, useState,useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -19,7 +19,6 @@ import {useAuth} from '../context/AuthContext';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 export default function ResetPasswordScreen({navigation}) {
   const {theme} = useContext(ThemeContext);
@@ -46,7 +45,6 @@ export default function ResetPasswordScreen({navigation}) {
     };
     loadSelectedLanguage();
   }, []);
-
   function handleSubmit() {
     if (password !== previousPasswordInput) {
       setError('Wrong current password');
@@ -80,19 +78,11 @@ export default function ResetPasswordScreen({navigation}) {
         </Text>
         <Text
           style={[styles.textStyle, styles.instruction, {color: theme.text}]}>
-         {t('set_your_new_password')}
+        {t('set_your_new_password')}
         </Text>
       </View>
-      <View
-        style={[
-          styles.input,
-          {
-            // backgroundColor: theme.textInputBG,
-
-            borderColor: theme.addButtonBorder,
-            borderWidth: 1,
-          },
-        ]}>        <View style={styles.inputLock}>
+      <View style={[styles.input, {backgroundColor: theme.textInputBG}]}>
+        <View style={styles.inputLock}>
           <Image source={theme.type == 'dark' ? lock : lockDark} />
           <TextInput
             style={styles.placeHolderText}
@@ -108,20 +98,13 @@ export default function ResetPasswordScreen({navigation}) {
           <Image source={theme.type == 'dark' ? eye : eyeDark} />
         </TouchableOpacity>
       </View>
-      <View
-        style={[
-          styles.input,
-          {
-            // backgroundColor: theme.textInputBG,
-
-            borderColor: theme.addButtonBorder,
-            borderWidth: 1,
-          },
-        ]}>        <View style={styles.inputLock}>
+      <View style={[styles.input, {backgroundColor: theme.textInputBG}]}>
+        <View style={styles.inputLock}>
           <Image source={theme.type == 'dark' ? lock : lockDark} />
           <TextInput
             style={styles.placeHolderText}
             placeholder={t('set_password_(8_characters)')}
+
             placeholderTextColor={theme.placeholderTextColor}
             onChangeText={newText => setPasswordInput(newText)}
             defaultValue={passwordInput}
@@ -132,20 +115,13 @@ export default function ResetPasswordScreen({navigation}) {
           <Image source={theme.type == 'dark' ? eye : eyeDark} />
         </TouchableOpacity>
       </View>
-      <View
-        style={[
-          styles.input,
-          {
-            // backgroundColor: theme.textInputBG,
-            justifyContent: 'space-between',
-            borderColor: theme.addButtonBorder,
-            borderWidth: 1,
-          },
-        ]}>        <View style={styles.inputLock}>
+      <View style={[styles.input, {backgroundColor: theme.textInputBG , justifyContent:'space-between'}]}>
+        <View style={styles.inputLock}>
           <Image source={theme.type == 'dark' ? lock : lockDark} />
           <TextInput
             style={[styles.placeHolderText ,{width:'100%'}]}
             placeholder={t('confirm_password')}
+
             placeholderTextColor={theme.placeholderTextColor}
             onChangeText={newText => setConfirmPasswordInput(newText)}
             defaultValue={confirmPasswordInput}

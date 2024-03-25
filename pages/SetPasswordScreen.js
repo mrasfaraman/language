@@ -1,5 +1,5 @@
 import CheckBox from '@react-native-community/checkbox';
-import React, {useState, useContext,useEffect} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -9,6 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import i18n from './i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 import eye from '../assets/images/eye-slash.png';
 import eyeDark from '../assets/images/eye-slash-dark.png';
 import lock from '../assets/images/lock.png';
@@ -18,11 +23,6 @@ import Header from '../components/header';
 import {ThemeContext} from '../context/ThemeContext';
 import {useAuth} from '../context/AuthContext';
 import { enrollFingerprint } from '../utils/BiometricUtils';
-import {useTranslation} from 'react-i18next';
-import i18n from './i18n';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 export default function SetPasswordScreen({navigation}) {
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
@@ -30,20 +30,6 @@ export default function SetPasswordScreen({navigation}) {
   const [passwordInput, setPasswordInput] = useState('');
   const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
   const [error, setError] = useState('');
-  const {t} = useTranslation();
-  useEffect(() => {
-    const loadSelectedLanguage = async () => {
-      try {
-        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-        if (selectedLanguage) {
-          i18n.changeLanguage(selectedLanguage); 
-        }
-      } catch (error) {
-        console.error('Error loading selected language:', error);
-      }
-    };
-    loadSelectedLanguage();
-  }, []);
 
   const {theme} = useContext(ThemeContext);
   const {password, savePassword} = useAuth();
@@ -80,7 +66,20 @@ export default function SetPasswordScreen({navigation}) {
     // return navigation.navigate('BiometricEnrollmentScreen');
     // return navigation.navigate('MainPage');
   }
-
+  const {t} = useTranslation();
+  useEffect(() => {
+    const loadSelectedLanguage = async () => {
+      try {
+        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+        if (selectedLanguage) {
+          i18n.changeLanguage(selectedLanguage); 
+        }
+      } catch (error) {
+        console.error('Error loading selected language:', error);
+      }
+    };
+    loadSelectedLanguage();
+  }, []);
   return (
     <ScrollView style={{backgroundColor: theme.screenBackgroud}}>
       <Header
@@ -94,7 +93,7 @@ export default function SetPasswordScreen({navigation}) {
       <View style={[styles.content, styles.textContainer]}>
         <Text style={[styles.textStyle, {color: theme.text}]}>
         {t('create_strong_password')}
-                </Text>
+        </Text>
         <Text
           style={[styles.textStyle, styles.instruction, {color: theme.text}]}>
         Minimum 8 Characters
@@ -154,11 +153,9 @@ export default function SetPasswordScreen({navigation}) {
         />
         <Text style={[styles.checkText, {color: theme.text}]}>
           I agree to{' '}
-          <TouchableOpacity onPress={() => navigation.navigate('Term')}>
           <Text style={[styles.emphasis, {color: theme.emphasis}]}>
-              Term and Serices
-            </Text>
-          </TouchableOpacity>
+            Terms and Conditions
+          </Text>
         </Text>
       </View>
       <SubmitBtn

@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -41,7 +41,6 @@ const Help = ({navigation}) => {
     };
     loadSelectedLanguage();
   }, []);
-
   return (
     <ScrollView
       style={[styles.mainWrapper, {backgroundColor: theme.screenBackgroud}]}>
@@ -70,7 +69,7 @@ const Help = ({navigation}) => {
               <Image source={HelpCoupon} />
             </View>
             <Text style={[styles.helpLeftTexts, {color: theme.text}]}>
-              {t('support_ticket')}
+            {t('support_ticket')}
             </Text>
           </View>
           <View style={styles.helpCardRightFlex}>

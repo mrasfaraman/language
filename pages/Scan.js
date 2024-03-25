@@ -18,7 +18,6 @@ import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const Scan = ({ navigation , route }) => {
   const { theme } = useContext(ThemeContext);
   const [isScanning, setIsScanning] = useState(false);
@@ -35,20 +34,6 @@ const Scan = ({ navigation , route }) => {
     getNetworkactive()
   }, [selectedNetwork, Networks])
 
-  const {t} = useTranslation();
-  useEffect(() => {
-    const loadSelectedLanguage = async () => {
-      try {
-        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-        if (selectedLanguage) {
-          i18n.changeLanguage(selectedLanguage); 
-        }
-      } catch (error) {
-        console.error('Error loading selected language:', error);
-      }
-    };
-    loadSelectedLanguage();
-  }, []);
 
   useEffect(() => {
     const getbls = async () => {
@@ -86,7 +71,20 @@ const Scan = ({ navigation , route }) => {
     // console.log(type)
     // console.log(data);
   };
-
+  const {t} = useTranslation();
+  useEffect(() => {
+    const loadSelectedLanguage = async () => {
+      try {
+        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+        if (selectedLanguage) {
+          i18n.changeLanguage(selectedLanguage); 
+        }
+      } catch (error) {
+        console.error('Error loading selected language:', error);
+      }
+    };
+    loadSelectedLanguage();
+  }, []);
   return (
     <ScrollView style={[styles.mainWrapper, { backgroundColor: theme.screenBackgroud }]}>
       <Header title={t('scan_qr')} onBack={() => navigation.goBack()} />

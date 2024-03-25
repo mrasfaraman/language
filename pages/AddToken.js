@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -12,15 +12,14 @@ import {
 import Header from '../components/header';
 import Token from '../components/AddToken/Token';
 import NetWork from '../components/AddToken/Network';
-import { ThemeContext } from '../context/ThemeContext';
+import {ThemeContext} from '../context/ThemeContext';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-const AddToken = ({ navigation }) => {
+const AddToken = ({navigation}) => {
   const [currentTab, setCurrenTab] = useState('token');
-  const { theme } = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
   const {t} = useTranslation();
   useEffect(() => {
     const loadSelectedLanguage = async () => {
@@ -37,26 +36,30 @@ const AddToken = ({ navigation }) => {
   }, []);
   return (
     <ScrollView
-      style={[styles.mainWrapper, { backgroundColor: theme.screenBackgroud }]}>
-      <Header onBack={() => navigation.goBack()} title="Add Token & Network" />
+      style={[styles.mainWrapper, {backgroundColor: theme.screenBackgroud}]}>
+      <Header onBack={() => navigation.goBack()} title= {t('add_token_&_network')} />
       <View style={styles.AddGeaderWrapper}>
         <TouchableOpacity
           onPress={() => setCurrenTab('token')}
           style={[
             styles.addTabs,
-            { borderBottomColor: theme.emphasis },
-            currentTab == 'token' && { borderBottomWidth: 2 },
+            {borderBottomColor: theme.emphasis},
+            currentTab == 'token' && {borderBottomWidth: 2},
           ]}>
-          <Text style={[styles.addTabsText, { color: theme.text }]}>{t('token')}</Text>
+          <Text style={[styles.addTabsText, {color: theme.text}]}>
+            {t('token')}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setCurrenTab('network')}
           style={[
             styles.addTabs,
-            { borderBottomColor: theme.emphasis },
-            currentTab == 'network' && { borderBottomWidth: 2 },
+            {borderBottomColor: theme.emphasis},
+            currentTab == 'network' && {borderBottomWidth: 2},
           ]}>
-          <Text style={[styles.addTabsText, { color: theme.text }]}>{t('network')}</Text>
+          <Text style={[styles.addTabsText, {color: theme.text}]}>
+            {t('network')}
+          </Text>
         </TouchableOpacity>
       </View>
       {currentTab == 'token' && <Token navigation={navigation} />}

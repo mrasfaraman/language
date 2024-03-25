@@ -51,6 +51,19 @@ export default function TransactionRecordScreen({ navigation }) {
   const [soltrx ,setsolTrx] = useState([])
   const [detailOpen, setDetailOpen] = useState(false)
   const [Loader, setLoader] = useState(false)
+  const {
+    wc,
+    wallet,
+    setWeb3Wallet,
+    Session,
+    saveSession,
+    selectedAccount,
+    setSelectedAccount,
+    Accounts,
+    addAccount,
+    Networks,
+    selectedNetwork
+  } = useAuth();
   const {t} = useTranslation();
   useEffect(() => {
     const loadSelectedLanguage = async () => {
@@ -65,20 +78,6 @@ export default function TransactionRecordScreen({ navigation }) {
     };
     loadSelectedLanguage();
   }, []);
-  const {
-    wc,
-    wallet,
-    setWeb3Wallet,
-    Session,
-    saveSession,
-    selectedAccount,
-    setSelectedAccount,
-    Accounts,
-    addAccount,
-    Networks,
-    selectedNetwork
-  } = useAuth();
-
   // const Network = activeNet?.type;
   // const [activeAccount, setActiveAccount] = useState();
   // const [activeNet, setActiveNet] = useState()

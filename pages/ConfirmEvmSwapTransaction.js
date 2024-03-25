@@ -14,22 +14,23 @@ import SwapDrop from '../assets/images/swap_drop.png';
 import SwapConfirmTransfer from '../assets/images/swap_confirm_transfer.png';
 import SwapConfirmTransferDark from '../assets/images/swap_confirm_transfer_dark.png';
 import {ThemeContext} from '../context/ThemeContext';
-import { confirmEvmSwap , getEVMBalance, sendSolNative ,Evm_estimatedGas} from '../utils/function';
+import { Solana_swap , SolToken_estimatedGas, sendSolNative } from '../utils/function';
 import MaroonSpinner from '../components/Loader/MaroonSpinner';
 import { useAuth } from '../context/AuthContext';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const fetchQuote = async (inputMint, outputMint , amount , inDecimals , outDecimals , chainId) => {
+const fetchQuote = async (inputMint, outputMint , amount) => {
   try {
-    const response = await fetch(`https://apiv5.paraswap.io/prices/?srcToken=${inputMint}&destToken=${outputMint}&amount=${amount}&srcDecimals=${inDecimals}&destDecimals=${outDecimals}&side=SELL&network=${chainId}`);
+    const response = await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}&slippageBps=50`);
     const data = await response.json();
     return data;
   } catch (error) {
-    // console.error("Error fetching data: ", error);
+    console.error("Error fetching data: ", error);
     throw error;
   }
 };
@@ -38,29 +39,21 @@ const ConfirmEvmSwapTransaction = ({route, navigation}) => {
   const {theme} = useContext(ThemeContext);
   const [loader , setLoader] = useState(true)
   const [trxDetail , setTrxDetail] = useState({})
-  const [activeNet, setActiveNet] = useState()
-  const [ballance, setBalance] = useState(0);
-  const getNetworkactive = async () => {
-    let data = await JSON.parse(selectedNetwork)
-    setActiveNet(data)
-}
-const {t} = useTranslation();
-useEffect(() => {
-  const loadSelectedLanguage = async () => {
-    try {
-      const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-      if (selectedLanguage) {
-        i18n.changeLanguage(selectedLanguage); 
-      }
-    } catch (error) {
-      console.error('Error loading selected language:', error);
-    }
-  };
-  loadSelectedLanguage();
-}, []);
-const [gasDetailgas , setGasDetailGas] = useState()
   const [gasDetail , setGasDetail] = useState()
-
+  const {t} = useTranslation();
+  useEffect(() => {
+    const loadSelectedLanguage = async () => {
+      try {
+        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+        if (selectedLanguage) {
+          i18n.changeLanguage(selectedLanguage); 
+        }
+      } catch (error) {
+        console.error('Error loading selected language:', error);
+      }
+    };
+    loadSelectedLanguage();
+  }, []);
   const {
     wc,
     wallet,
@@ -74,41 +67,13 @@ const [gasDetailgas , setGasDetailGas] = useState()
     Networks,
     selectedNetwork
   } = useAuth();
-  const getbls = async () => {
-    if (activeNet?.type === "evm") {
-      let data = await getEVMBalance( selectedAccount?.evm?.address.replace(/^"|"$/g, ''), activeNet?.nodeURL)
-      console.log("balance",data?.balance)
-      setBalance(data?.balance)
-    } else {
-      setBalance(0)
-    }
-  }
-  useEffect(() => {
-    getbls()
-    const intervalId = setInterval(getbls, 10000);
-    return () => clearInterval(intervalId);
-  }, [])
-
-  useEffect(() => {
-    getNetworkactive()
-}, [])
-
 
   const confirmAndSend = async () => {
     // console.log("trx",trxDetail?.inToken?.address || trxDetail?.inToken?.token_address, trxDetail?.outToken?.address || trxDetail?.outToken?.token_address,  trxDetail?.inAmount , selectedAccount.solana?.privateKey || selectedAccount.solana?.secretKey)
     try {
-      //  selectedAccount.evm?.privateKey || selectedAccount.evm?.secretKey 
       setLoader(true)
-      let response = await confirmEvmSwap(
-        activeNet?.nodeURL,
-        trxDetail?.inToken?.address || trxDetail?.inToken?.token_address,
-        trxDetail?.outToken?.address || trxDetail?.outToken?.token_address,
-        trxDetail?.amountWei,
-        selectedAccount.evm?.address,
-        selectedAccount.evm?.address,
-        selectedAccount.evm?.privateKey || selectedAccount.evm?.secretKey
-      );
-      console.log('Sending Evm...', response);
+      let response = await Solana_swap(trxDetail?.inToken?.address || trxDetail?.inToken?.token_address, trxDetail?.outToken?.address || trxDetail?.outToken?.token_address,  trxDetail?.inAmount , selectedAccount.solana?.privateKey || selectedAccount.solana?.secretKey);
+      console.log('Sending Sol...', response);
       if (response) {
         setLoader(false)
         Toast.show({
@@ -122,7 +87,7 @@ const [gasDetailgas , setGasDetailGas] = useState()
         setLoader(false)
         Toast.show({
           type: ALERT_TYPE.INFO,
-          title: 'Swap Failed',
+          title: 'Network Error',
           textBody: 'Network Issue Try Again Later',
         })
         // navigation.navigate("MainPage")
@@ -137,15 +102,12 @@ const [gasDetailgas , setGasDetailGas] = useState()
     }
   }
 
-  const getEstimatedGas = async (data) => {
+  const getEstimatedGas = async () => {
     try{
       setLoader(true)
-      let gasDatagas = await Evm_estimatedGas('0x000000000000000000000000000000000000dEaD' , '0x000000000000000000000000000000000000dEaD' , 0 ,data.chain)
-      console.log(gasDatagas)
-      setGasDetailGas(gasDatagas)
-      // console.log(trxDetail?.inToken?.address || trxDetail?.inToken?.token_address, trxDetail?.outToken?.address || trxDetail?.outToken?.token_address,trxDetail?.inAmount)
-      let gasData = await fetchQuote( data?.outToken?.address || data?.outToken?.token_address , data?.inToken?.address || data?.inToken?.token_address , data?.amountWei , data?.decimals , data?.decimalsBottom ,data?.chainID )
-      // console.log("gas data >>>>>>>>>>>>>",gasData)
+      console.log(trxDetail?.inToken?.address || trxDetail?.inToken?.token_address, trxDetail?.outToken?.address || trxDetail?.outToken?.token_address,trxDetail?.inAmount)
+      let gasData = await SolToken_estimatedGas(data?.privateKey, data?.address,  trxDetail?.inToken?.address || trxDetail?.inToken?.token_address , data?.amountWei)
+      console.log("gas data >>>>>>>>>>>>>",gasData)
       setGasDetail(gasData)
       setLoader(false)
     }catch(error){
@@ -155,7 +117,7 @@ const [gasDetailgas , setGasDetailGas] = useState()
 
   useEffect(() => {
     if (route?.params?.trxData) {
-      // console.log(route?.params?.trxData?.privateKey)
+      console.log(route?.params?.trxData?.privateKey)
       getEstimatedGas(route?.params?.trxData)
       setTrxDetail(route?.params?.trxData);
     }
@@ -219,11 +181,9 @@ const [gasDetailgas , setGasDetailGas] = useState()
       </View>
     );
   };
-  let totalAmount = Number(trxDetail.inAmount) + Number(gasDetailgas?.gasFeeInEther)
-  let validity = Number(trxDetail.inAmount) + Number(gasDetailgas?.gasFeeInEther)
-  let isvalid =  validity >= ballance  ?  false : true;
-  console.log(totalAmount)
-  console.log(gasDetailgas?.gasFeeInEther)
+  let totalAmount = Number(trxDetail?.amount) + Number(gasDetail?.gasFeeInEther)
+  let validity = Number(trxDetail?.amount) + Number(gasDetail?.gasFeeInEther)
+  let isvalid = validity > trxDetail?.balance ?  false : true;
   return (
     <ScrollView
       style={[styles.mainWrapper, {backgroundColor: theme.screenBackgroud}]}>
@@ -237,7 +197,9 @@ const [gasDetailgas , setGasDetailGas] = useState()
       <View style={[styles.confirmAmountWrapperFlex ,{marginTop:50}]}>
         <View style={styles.confrimAmountCenterWrapper}>
           <Text style={[styles.confirmAmountHeding, {color: theme.text}]}>
+          {/* Review Your Transaction */}
           {t('review_your_transaction')}
+
           </Text>
           <View style={styles.confirmAmountFlex}>
             <View>
@@ -273,10 +235,13 @@ const [gasDetailgas , setGasDetailGas] = useState()
       <View
         style={[styles.gasFeeMainWrapper, {backgroundColor: theme.menuItemBG}]}>
         <View style={styles.gasFeeFlex}>
-          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>Gas Cost</Text>
+          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>
+          {t('platform_fee')}
+
+          </Text>
           <View>
             <Text style={[styles.gasFeeValue, {color: theme.emphasis}]}>
-            $ {gasDetail?.priceRoute?.gasCostUSD}
+           0
             </Text>
             {/* <Text style={[styles.gasFeeMaxVal, {color: theme.text}]}>
             {trxDetail?.amount}
@@ -284,32 +249,21 @@ const [gasDetailgas , setGasDetailGas] = useState()
           </View>
         </View>
         <View style={styles.gasFeeFlex}>
-          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>Method</Text>
+          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>{t('slippage')}</Text>
           <View>
             {/* <Text style={[styles.gasFeeValue, {color: theme.emphasis}]}>
               0.00612061025
             </Text> */}
             <Text style={[styles.gasFeeMaxVal, {color: theme.text}]}>
-            {gasDetail?.priceRoute?.contractMethod}
+             1%
             </Text>
           </View>
         </View>
         <View style={styles.gasFeeFlex}>
-          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>Network</Text>
-          <View>
-            {/* <Text style={[styles.gasFeeValue, {color: theme.emphasis}]}>
-              0.00612061025
-            </Text> */}
-            <Text style={[styles.gasFeeMaxVal, {color: theme.text}]}>
-            {gasDetail?.priceRoute?.network}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.gasFeeFlex}>
-          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>Received Amount</Text>
+          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>{t('received_amount')}</Text>
           <View>
             <Text style={[styles.gasFeeValue, {color: theme.emphasis}]}>
-            {Number(trxDetail?.outAmount)?.toFixed(6)} {trxDetail?.outToken?.symbol}
+            {Number(trxDetail?.outAmount)} {trxDetail?.symbol}
             </Text>
             {/* <Text style={[styles.gasFeeMaxVal, {color: theme.text}]}>
               0.00612061025
@@ -330,12 +284,14 @@ const [gasDetailgas , setGasDetailGas] = useState()
           ]}>
           <Text style={[styles.tokenImportButtonText, {color: '#fff'}]}>
           {t('confirm_transaction')}
+
           </Text>
         </TouchableOpacity>
         :
         <View style={{ justifyContent: 'center', alignItems: 'center'}}>
         <Text style={[styles.gasFeeValue, {color: theme.emphasis }]}>
         {t('insufficient_funds_for_gas')}
+
         </Text>
         <TouchableOpacity
           style={[
@@ -349,6 +305,7 @@ const [gasDetailgas , setGasDetailGas] = useState()
           ]}>
           <Text style={[styles.tokenImportButtonText, {color: '#fff'}]}>
           {t('confirm_transaction')}
+
           </Text>
         </TouchableOpacity>
         </View>

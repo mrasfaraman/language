@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -31,14 +31,13 @@ export default function CreateWalletScreen({navigation}) {
     };
     loadSelectedLanguage();
   }, []);
-
   return (
     <ScrollView style={{backgroundColor: theme.screenBackgroud}}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={arrowLeft} />
         </TouchableOpacity>
-        <Text style={[styles.title, {color: theme.text}]}>{t('create_wallet')}</Text>
+        <Text style={[styles.title, {color: theme.text}]}> {t('create_wallet')}</Text>
         <Image source={arrowLeft} style={{opacity: 0}} />
       </View>
       <View style={styles.bgImg}>

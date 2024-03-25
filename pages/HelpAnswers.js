@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -80,9 +80,10 @@ const HelpAnswers = ({navigation}) => {
         </View>
         <Text style={[styles.helpMessageText, {color: theme.text}]}>
         {t('still_need_help_contact_our_support_team')}
+
         </Text>
         <TouchableOpacity style={[styles.messageButtonWrapper, {backgroundColor: theme.emphasis}]}>
-          <Text style={[styles.messageButtonText, {color: '#fff'}]}>{t('message_us')}</Text>
+          <Text style={[styles.messageButtonText, {color: '#fff'}]}> {t('message_us')}</Text>
           <View>
             <Image source={MessageIcon} width={20} height={20} />
           </View>

@@ -18,10 +18,11 @@ import { sendEvmNative , Sol_estimatedGas, sendSolNative } from '../utils/functi
 import MaroonSpinner from '../components/Loader/MaroonSpinner';
 import { useAuth } from '../context/AuthContext';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+
+
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 const ConfirmSolTransaction = ({route, navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -121,6 +122,7 @@ const ConfirmSolTransaction = ({route, navigation}) => {
           <View style={styles.dropDownFlex}>
             <Text style={[styles.swapHeaderText, {color: theme.text}]}>
             {t('token')}
+
             </Text>
             <View style={styles.swapLeftSubFlex}>
               <View style={styles.currencyIconWrapper}>
@@ -184,6 +186,7 @@ const ConfirmSolTransaction = ({route, navigation}) => {
         <View style={styles.confrimAmountCenterWrapper}>
           <Text style={[styles.confirmAmountHeding, {color: theme.text}]}>
           {t('review_your_transaction')}
+
           </Text>
           <View style={styles.confirmAmountFlex}>
             <View>
@@ -219,7 +222,7 @@ const ConfirmSolTransaction = ({route, navigation}) => {
       <View
         style={[styles.gasFeeMainWrapper, {backgroundColor: theme.menuItemBG}]}>
         <View style={styles.gasFeeFlex}>
-          <Text style={[styles.gasFeeLabel, {color: theme.text}]}> {t('amount_to_send')}</Text>
+          <Text style={[styles.gasFeeLabel, {color: theme.text}]}>  {t('amount_to_send')}</Text>
           <View>
             <Text style={[styles.gasFeeValue, {color: theme.emphasis}]}>
             {trxDetail?.amount}
@@ -265,12 +268,14 @@ const ConfirmSolTransaction = ({route, navigation}) => {
           ]}>
           <Text style={[styles.tokenImportButtonText, {color: '#fff'}]}>
           {t('confirm_transaction')}
+
           </Text>
         </TouchableOpacity>
         :
         <View style={{ justifyContent: 'center', alignItems: 'center'}}>
         <Text style={[styles.gasFeeValue, {color: theme.emphasis }]}>
         {t('insufficient_funds_for_gas')}
+
         </Text>
         <TouchableOpacity
           style={[
@@ -284,6 +289,7 @@ const ConfirmSolTransaction = ({route, navigation}) => {
           ]}>
           <Text style={[styles.tokenImportButtonText, {color: '#fff'}]}>
           {t('confirm_transaction')}
+
           </Text>
         </TouchableOpacity>
         </View>

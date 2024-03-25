@@ -14,10 +14,8 @@ import { RadioButton } from 'react-native-paper';
 import Header from '../components/header';
 import { ThemeContext } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
-import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
-
 
 
 export default function Networks({ navigation }) {
@@ -30,30 +28,23 @@ export default function Networks({ navigation }) {
         setActiveNet(data)
     }
     const {t} = useTranslation();
-    useEffect(() => {
-      const loadSelectedLanguage = async () => {
-        try {
-          const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-          if (selectedLanguage) {
-            i18n.changeLanguage(selectedLanguage); 
-          }
-        } catch (error) {
-          console.error('Error loading selected language:', error);
+  useEffect(() => {
+    const loadSelectedLanguage = async () => {
+      try {
+        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+        if (selectedLanguage) {
+          i18n.changeLanguage(selectedLanguage); 
         }
-      };
-      loadSelectedLanguage();
-    }, []);
+      } catch (error) {
+        console.error('Error loading selected language:', error);
+      }
+    };
+    loadSelectedLanguage();
+  }, []);
     const selectNetwork = async (item) => {
         await AsyncStorage.setItem('SelectedNetworks', JSON.stringify(item));
         setSelectedNetwork(item)
         setActiveNet(item)
-        navigation.navigate('MainPage')
-     
-        Toast.show({
-            type: ALERT_TYPE.INFO,
-            title: 'Switch Network',
-            textBody: `Network Switch to ${item?.networkName}`,
-          })
     }
     function renderItem({ item }) {
         // const {flag} = item;

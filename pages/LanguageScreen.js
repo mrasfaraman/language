@@ -1,4 +1,5 @@
-import React, {useState, useContext,useEffect} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
+import 'intl-pluralrules';
 import {
   FlatList,
   Image,
@@ -15,8 +16,6 @@ import {ThemeContext} from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
-
-
 const LANGUAGES = [
   {
     language: 'English',
@@ -64,9 +63,11 @@ const LANGUAGES = [
     flag: require('../assets/images/UK.png'),
   },
 ];
+
 export default function LanguageScreen({navigation}) {
   const [language, setLanguage] = useState();
   const [name, setName] = useState();
+
   const {theme} = useContext(ThemeContext);
   const {t} = useTranslation();
 
@@ -112,7 +113,6 @@ export default function LanguageScreen({navigation}) {
   }, []);
 
   function renderItem({item}) {
-    // const {flag} = item;
     return (
       <TouchableOpacity
         onPress={() => setLanguageAndStore(item.lang, item.language)}
@@ -124,7 +124,8 @@ export default function LanguageScreen({navigation}) {
                   borderColor: theme.langItmBorder,
                 },
                 styles.item,
-                styles.selected,{ borderColor: theme.emphasis}
+                styles.selected,
+                {borderColor: theme.emphasis},
               ]
             : [
                 {
@@ -155,7 +156,11 @@ export default function LanguageScreen({navigation}) {
         <View style={[styles.input, {backgroundColor: theme.menuItemBG}]}>
           <Image
             style={styles.imgStyle}
-            source={theme.type == 'dark' ? require('../assets/images/search-md.png') : require('../assets/images/list-search-dark.png')}
+            source={
+              theme.type == 'dark'
+                ? require('../assets/images/search-md.png')
+                : require('../assets/images/list-search-dark.png')
+            }
           />
           <TextInput
             style={[styles.searchInput, {color: theme.text}]}
@@ -163,6 +168,7 @@ export default function LanguageScreen({navigation}) {
             placeholderTextColor={theme.text}
           />
         </View>
+
         <RadioButton.Group
           onValueChange={lang => setLanguageAndStore(lang)}
           value={language}>
@@ -174,9 +180,6 @@ export default function LanguageScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  // screen: {
-  //   // backgroundColor: '#280D2C',
-  // },
   container: {
     marginVertical: 24,
     marginHorizontal: 16,
@@ -187,36 +190,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 16,
-    // border: 1px solid #313843;
     borderWidth: 1,
     borderStyle: 'solid',
-    // borderColor: '#313843',
-    // marginVertical: 12,
     marginBottom: 12,
-    // backgroundColor: '#362538',
   },
   itemLeft: {
     flexDirection: 'row',
     paddingHorizontal: 20,
     paddingVertical: 14,
-    // justifyContent: 'center',
     gap: 8,
     alignItems: 'center',
-    // gap: 188,
-    // alignSelf: 'stretch',
   },
   selected: {
-    borderRadius: 16,
-    // border: '2px solid var(--Secodary, #F43459)',
     borderWidth: 2,
-    // borderColor: '#F43459',
-    borderStyle: 'solid',
-
-    // backgroundColor: '#362538',
   },
   input: {
     flexDirection: 'row',
-    // backgroundColor: '#362538',
     alignItems: 'center',
     padding: 14,
     paddingVertical: 0,
@@ -229,6 +218,5 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     minWidth: '100%',
-    // color: 'white',
   },
 });

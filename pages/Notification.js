@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -18,7 +18,6 @@ import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const Notification = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
   const data = [1, 1, 1, 1];
@@ -36,7 +35,6 @@ const Notification = ({navigation}) => {
     };
     loadSelectedLanguage();
   }, []);
-
   const NotificationCard = () => {
     return (
       <View style={[styles.NotificationCardWrapper, {backgroundColor: theme.notificationWraperBG}]}>
@@ -49,13 +47,13 @@ const Notification = ({navigation}) => {
           <View style={styles.upperHeaderFlex}>
             <Text style={[styles.upperheading, {color: theme.text}]}>{t('claim_your_rewards')}</Text>
             <View style={[styles.newTag, {backgroundColor: theme.emphasis}]}>
-            <Text>{t('new')}</Text>
+              <Text>{t('new')}</Text>
             </View>
           </View>
           <Text style={[styles.notificationPara, {color: theme.text}]}>
           {t('claim_your_sign_up_bonus_rewards_by_rijex_now')}
           </Text>
-          <Text style={[styles.notificationTime, {color: theme.notificationTime}]}>2 hours ago</Text>
+          <Text style={[styles.notificationTime, {color: theme.notificationTime}]}>2 {t('hours_ago')}</Text>
         </View>
       </View>
     );

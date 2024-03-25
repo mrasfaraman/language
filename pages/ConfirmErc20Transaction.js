@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import Header from '../components/header';
 import SwapCurrencyIcon from '../assets/images/swap_currency_icon.png';
 import SwapCurrencyBtcLarge from '../assets/images/swap_btc_large.png';
@@ -19,19 +20,36 @@ import MaroonSpinner from '../components/Loader/MaroonSpinner';
 import { useAuth } from '../context/AuthContext';
 
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const ConfirmErc20Transaction = ({route, navigation}) => {
   const {theme} = useContext(ThemeContext);
+  // const {t} = useTranslation();
+
+ 
   const [loader , setLoader] = useState(true)
   const [trxDetail , setTrxDetail] = useState({})
   const [gasDetail , setGasDetail] = useState()
   const [ballance, setBalance] = useState(0);
   const [activeNet, setActiveNet] = useState()
   const [address, setAddress] = useState();
+  const {t} = useTranslation();
+  useEffect(() => {
+    const loadSelectedLanguage = async () => {
+      try {
+        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+        if (selectedLanguage) {
+          i18n.changeLanguage(selectedLanguage); 
+        }
+      } catch (error) {
+        console.error('Error loading selected language:', error);
+      }
+    };
+    loadSelectedLanguage();
+  }, []);
   const {
     wc,
     wallet,
@@ -50,20 +68,7 @@ const ConfirmErc20Transaction = ({route, navigation}) => {
     let data = await JSON.parse(selectedNetwork)
     setActiveNet(data)
   }
-  const {t} = useTranslation();
-  useEffect(() => {
-    const loadSelectedLanguage = async () => {
-      try {
-        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-        if (selectedLanguage) {
-          i18n.changeLanguage(selectedLanguage); 
-        }
-      } catch (error) {
-        console.error('Error loading selected language:', error);
-      }
-    };
-    loadSelectedLanguage();
-  }, []);
+
   useEffect(() => {
     getNetworkactive()
   }, [selectedNetwork, Networks])
@@ -216,6 +221,7 @@ const ConfirmErc20Transaction = ({route, navigation}) => {
         <View style={styles.confrimAmountCenterWrapper}>
           <Text style={[styles.confirmAmountHeding, {color: theme.text}]}>
           {t('review_your_transaction')}
+
           </Text>
           <View style={styles.confirmAmountFlex}>
             <View>
@@ -300,6 +306,7 @@ const ConfirmErc20Transaction = ({route, navigation}) => {
           ]}>
           <Text style={[styles.tokenImportButtonText, {color: '#fff'}]}>
           {t('confirm_transaction')}
+
           </Text>
         </TouchableOpacity>
 
@@ -307,6 +314,7 @@ const ConfirmErc20Transaction = ({route, navigation}) => {
         <View style={{ justifyContent: 'center', alignItems: 'center'}}>
         <Text style={[styles.gasFeeValue, {color: theme.emphasis }]}>
         {t('insufficient_funds_for_gas')}
+
         </Text>
         
         <TouchableOpacity
@@ -321,6 +329,7 @@ const ConfirmErc20Transaction = ({route, navigation}) => {
           ]}>
           <Text style={[styles.tokenImportButtonText, {color: '#fff'}]}>
           {t('confirm_transaction')}
+
           </Text>
         </TouchableOpacity>
         </View>

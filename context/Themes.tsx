@@ -3,11 +3,8 @@ export type Theme = {
   name: string;
   screenBackgroud: string;
   text: string;
-  cardtext: string;
   emphasis: string;
-  bottomButtonSelectedBG: string;
   buttonBorder: string;
-  addButtonBorder: string;
   promisBorder: string;
   promisBackground: string;
   wordBorder: string;
@@ -26,7 +23,6 @@ export type Theme = {
   statusYellow: string;
   statusTextYellow: string;
   menuItemBG: string;
-  addButtonBG: string;
   rightArrowBG: string;
   mode: string;
   pancakeBorderBottom: string;
@@ -55,11 +51,8 @@ const themes: {[key: string]: Theme} = {
     type: 'dark',
     screenBackgroud: '#280D2C',
     text: '#fff',
-    cardtext: '#fff',
     emphasis: '#F43459',
-    bottomButtonSelectedBG: '#F43459',
     buttonBorder: '#FF003C',
-    addButtonBorder: '#FF003C',
     promisBorder: '#F43459',
     promisBackground: '#351739',
     wordBorder: '#5F3665',
@@ -78,7 +71,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#362538',
-    addButtonBG: '#362538',
     rightArrowBG: '#4E3B51',
     mode: '#F43459',
     pancakeBorderBottom: '#3E1844',
@@ -98,18 +90,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#104a5c',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#362538',
+    customizeBG: '#362538'
   },
   theme2: {
     name: 'theme2',
     type: 'light',
     screenBackgroud: '#fff',
     text: '#000',
-    cardtext: '#fff',
     emphasis: '#8F26ED',
-    bottomButtonSelectedBG: '#8F26ED',
     buttonBorder: '#8F26ED',
-    addButtonBorder: '#8F26ED',
     promisBorder: '#8F26ED',
     promisBackground: '#f9fafb',
     wordBorder: '#d1d5db',
@@ -128,7 +117,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#f3f4f6',
-    addButtonBG: '#f3f4f6',
     rightArrowBG: '#e5e7eb',
     mode: '#8F26ED',
     pancakeBorderBottom: '#e5e7eb',
@@ -148,18 +136,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#fff',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#f9fafb',
+    customizeBG: '#f9fafb'
   },
   theme3: {
     name: 'theme3',
     type: 'dark',
-    cardtext: '#fff',
     screenBackgroud: '#280D2C',
     text: '#fff',
     emphasis: '#9ca3af',
-    bottomButtonSelectedBG: '#E5E5E5',
     buttonBorder: '#9ca3af',
-    addButtonBorder: '#E5E5E5',
     promisBorder: '#9ca3af',
     promisBackground: '#351739',
     wordBorder: '#5F3665',
@@ -178,7 +163,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#362538',
-    addButtonBG: '#E5E5E5',
     rightArrowBG: '#4E3B51',
     mode: '#9ca3af',
     pancakeBorderBottom: '#E5E5E5',
@@ -198,18 +182,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#104a5c',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#362538',
+    customizeBG: '#362538'
   },
   theme4: {
     name: 'theme4',
     type: 'light',
-    cardtext: '#fff',
     screenBackgroud: '#fff',
     text: '#000',
     emphasis: '#00B41D',
-    bottomButtonSelectedBG: '#F43459',
     buttonBorder: '#009F53',
-    addButtonBorder: '#009F53',
     promisBorder: '#00B41D',
     promisBackground: '#f9fafb',
     wordBorder: '#d1d5db',
@@ -228,7 +209,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#f3f4f6',
-    addButtonBG: '#f3f4f6',
     rightArrowBG: '#e5e7eb',
     mode: '#00B41D',
     pancakeBorderBottom: '#e5e7eb',
@@ -248,18 +228,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#fff',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#f9fafb',
+    customizeBG: '#f9fafb'
   },
   theme5: {
     name: 'theme5',
     type: 'dark',
     screenBackgroud: '#000',
     text: '#fff',
-    cardtext: '#fff',
     emphasis: '#0500FF',
-    bottomButtonSelectedBG: '#0500FF',
-    buttonBorder: '#24FF00',
-    addButtonBorder: '#0500FF',
+    buttonBorder: '#E5E5E5',
     promisBorder: '#0500FF',
     promisBackground: '#172554',
     wordBorder: '#5F3665',
@@ -278,7 +255,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#353535',
-    addButtonBG: '#0500FF',
     rightArrowBG: '#353535',
     mode: '#0500FF',
     pancakeBorderBottom: '#3E1844',
@@ -298,18 +274,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#104a5c',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#353535',
+    customizeBG: '#353535'
   },
   theme6: {
     name: 'theme6',
     type: 'dark',
     screenBackgroud: '#280D2C',
     text: '#fff',
-    cardtext: '#fff',
     emphasis: '#24FF00',
-    bottomButtonSelectedBG: '#24FF00',
     buttonBorder: '#24FF00',
-    addButtonBorder: '#24FF00',
     promisBorder: '#24FF00',
     promisBackground: '#351739',
     wordBorder: '#5F3665',
@@ -328,7 +301,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#362538',
-    addButtonBG: '#362538',
     rightArrowBG: '#4E3B51',
     mode: '#24FF00',
     pancakeBorderBottom: '#3E1844',
@@ -348,18 +320,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#104a5c',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#362538',
+    customizeBG: '#362538'
   },
   theme7: {
     name: 'dark',
     type: 'dark',
     screenBackgroud: '#000',
     text: '#fff',
-    cardtext: '#fff',
     emphasis: '#9ca3af',
-    bottomButtonSelectedBG: '#E5E5E5',
     buttonBorder: '#9ca3af',
-    addButtonBorder: '#353535',
     promisBorder: '#9ca3af',
     promisBackground: '#172554',
     wordBorder: '#5F3665',
@@ -378,7 +347,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#353535',
-    addButtonBG: '#353535',
     rightArrowBG: '#353535',
     mode: '#9ca3af',
     pancakeBorderBottom: '#3E1844',
@@ -398,18 +366,15 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#104a5c',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#353535',
+    customizeBG: '#353535'
   },
   theme8: {
     name: 'dark',
     type: 'light',
     screenBackgroud: '#fff',
     text: '#000',
-    cardtext: '#fff',
     emphasis: '#ED264A',
-    bottomButtonSelectedBG: '#F43459',
     buttonBorder: '#ED264A',
-    addButtonBorder: '#ED264A',
     promisBorder: '#ED264A',
     promisBackground: '#f9fafb',
     wordBorder: '#d1d5db',
@@ -428,7 +393,6 @@ const themes: {[key: string]: Theme} = {
     statusYellow: '#f5770214',
     statusTextYellow: '#F57702',
     menuItemBG: '#f3f4f6',
-    addButtonBG: '#f3f4f6',
     rightArrowBG: '#e5e7eb',
     mode: '#ED264A',
     pancakeBorderBottom: '#e5e7eb',
@@ -448,7 +412,7 @@ const themes: {[key: string]: Theme} = {
     cardWrapper: '#fff',
     gradientB: '#36253800',
     senderLabel: '#937F96',
-    customizeBG: '#f9fafb',
+    customizeBG: '#f9fafb'
   },
 };
 

@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
-import { authenticateFingerprint } from '../utils/BiometricUtils';
+import React, {useEffect} from 'react';
+import {View, Text, Button} from 'react-native';
+import {authenticateFingerprint} from '../utils/BiometricUtils';
 import {useTranslation} from 'react-i18next';
 import i18n from './i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,14 +26,17 @@ const BiometricAuthenticationScreen = () => {
     // return navigation.navigate('MainPage');
   };
 
-//   const authenticateFaceIDHandler = () => {
-//     authenticateFaceID(); // Function to authenticate Face ID
-//   };
+  //   const authenticateFaceIDHandler = () => {
+  //     authenticateFaceID(); // Function to authenticate Face ID
+  //   };
 
   return (
     <View>
-      <Text>{t('authenticate_biometrics')}</Text>
-      <Button title="Authenticate Fingerprint" onPress={authenticateFingerprintHandler} />
+      <Text> {t('authenticate_biometrics')}</Text>
+      <Button
+        title="Authenticate Fingerprint"
+        onPress={authenticateFingerprintHandler}
+      />
       {/* <Button title="Authenticate Face ID" onPress={authenticateFaceIDHandler} /> */}
     </View>
   );

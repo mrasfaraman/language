@@ -17,20 +17,19 @@ import Header from '../components/header';
 import BottomMenu from '../components/BottomMenu';
 import {ThemeContext} from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
+import {useTranslation} from 'react-i18next';
+import i18n from './i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import '@walletconnect/react-native-compat';
 import { Core } from '@walletconnect/core';
 import { Web3Wallet, Web3WalletTypes } from '@walletconnect/web3wallet'
 import { buildApprovedNamespaces, getSdkError } from '@walletconnect/utils';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
-import {useTranslation} from 'react-i18next';
-import i18n from './i18n';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 const PanCakeList = ({ navigation }) => {
     const {theme} = useContext(ThemeContext);
     const {Session , wallet , removeSession} = useAuth();
-
     const {t} = useTranslation();
     useEffect(() => {
       const loadSelectedLanguage = async () => {
@@ -45,6 +44,7 @@ const PanCakeList = ({ navigation }) => {
       };
       loadSelectedLanguage();
     }, []);
+
     const handleDisconnectPress = async (topic) => {
         console.log(topic)
         await wallet.extendSession({ topic })
@@ -128,7 +128,7 @@ const PanCakeList = ({ navigation }) => {
     return (
         <View style={{height:'100%' , backgroundColor: theme.screenBackgroud}}>
             <ScrollView style={[styles.MainWrapper, {backgroundColor: theme.screenBackgroud}]}>
-                <Header title={t('connections')}  onBack={() => navigation.goBack()} />
+                <Header title={t('connections')} onBack={() => navigation.goBack()} />
                 {/* <View style={[styles.listSearchWrapper, {backgroundColor: theme.menuItemBG}]}> */}
                     {/* <Image source={theme.type == 'dark' ? ListSearch : ListSearchDark} alt="search" /> */}
                     {/* <TextInput placeholder="Search" style={[{color: theme.text}, styles.listSearchText]} placeholderTextColor={theme.text} /> */}

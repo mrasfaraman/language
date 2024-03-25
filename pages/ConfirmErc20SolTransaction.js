@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import i18n from './i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import Header from '../components/header';
 import SwapCurrencyIcon from '../assets/images/swap_currency_icon.png';
 import SwapCurrencyBtcLarge from '../assets/images/swap_btc_large.png';
@@ -17,15 +21,9 @@ import {ThemeContext} from '../context/ThemeContext';
 import { sendEvmToken , SolToken_estimatedGas ,  getSolBalance, getEVMBalance , sendSolToken } from '../utils/function';
 import MaroonSpinner from '../components/Loader/MaroonSpinner';
 import { useAuth } from '../context/AuthContext';
-import {useTranslation} from 'react-i18next';
-import i18n from './i18n';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
-
-
-
 
 const ConfirmErc20SolTransaction = ({route, navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -35,6 +33,20 @@ const ConfirmErc20SolTransaction = ({route, navigation}) => {
   const [ballance, setBalance] = useState(0);
   const [activeNet, setActiveNet] = useState()
   const [address, setAddress] = useState();
+  const {t} = useTranslation();
+  useEffect(() => {
+    const loadSelectedLanguage = async () => {
+      try {
+        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
+        if (selectedLanguage) {
+          i18n.changeLanguage(selectedLanguage); 
+        }
+      } catch (error) {
+        console.error('Error loading selected language:', error);
+      }
+    };
+    loadSelectedLanguage();
+  }, []);
   const {
     wc,
     wallet,
@@ -53,20 +65,7 @@ const ConfirmErc20SolTransaction = ({route, navigation}) => {
     let data = await JSON.parse(selectedNetwork)
     setActiveNet(data)
   }
-  const {t} = useTranslation();
-  useEffect(() => {
-    const loadSelectedLanguage = async () => {
-      try {
-        const selectedLanguage = await AsyncStorage.getItem('selectedLanguage');
-        if (selectedLanguage) {
-          i18n.changeLanguage(selectedLanguage); 
-        }
-      } catch (error) {
-        console.error('Error loading selected language:', error);
-      }
-    };
-    loadSelectedLanguage();
-  }, []);
+
   useEffect(() => {
     getNetworkactive()
   }, [selectedNetwork, Networks])
@@ -156,6 +155,7 @@ const ConfirmErc20SolTransaction = ({route, navigation}) => {
           <View style={styles.dropDownFlex}>
             <Text style={[styles.swapHeaderText, {color: theme.text}]}>
             {t('token')}
+
             </Text>
             <View style={styles.swapLeftSubFlex}>
               <View style={styles.currencyIconWrapper}>
@@ -220,6 +220,7 @@ const ConfirmErc20SolTransaction = ({route, navigation}) => {
         <View style={styles.confrimAmountCenterWrapper}>
           <Text style={[styles.confirmAmountHeding, {color: theme.text}]}>
           {t('review_your_transaction')}
+
           </Text>
           <View style={styles.confirmAmountFlex}>
             <View>
@@ -311,6 +312,7 @@ const ConfirmErc20SolTransaction = ({route, navigation}) => {
         <View style={{ justifyContent: 'center', alignItems: 'center'}}>
         <Text style={[styles.gasFeeValue, {color: theme.emphasis }]}>
         {t('insufficient_funds_for_gas')}
+
         </Text>
         
         <TouchableOpacity
